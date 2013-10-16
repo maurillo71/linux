@@ -679,29 +679,6 @@ static int usb_parse_configuration(struct usb_device *dev, int cfgidx,
 	return 0;
 }
 
-/**
- * usb_ep_autoconfig_reset - reset endpoint autoconfig state
- * @gadget: device for which autoconfig state will be reset
- *
- * Use this for devices where one configuration may need to assign
- * endpoint resources very differently from the next one.  It clears
- * state such as ep->driver_data and the record of assigned endpoints
- * used by usb_ep_autoconfig().
- */
-void usb_ep_autoconfig_reset (struct usb_gadget *gadget)
-{
-	struct usb_ep	*ep;
-
-	list_for_each_entry (ep, &gadget->ep_list, ep_list) {
-		ep->driver_data = NULL;
-		ep->desc = NULL;
-	}
-#ifdef	MANY_ENDPOINTS
-	in_epnum = 0;
-#endif
-	epnum = 0;
-}
-
 /*-------------------------------------------------------------------------*/
 /* Module stuff */
 
@@ -720,11 +697,11 @@ module_param(debug, uint, 1);
 MODULE_PARM_DESC(debug, "Debug level, default=0");
 
 /* endpoints enabling/disabling */
+/*
 extern void usb_enable_endpoint(struct usb_device *dev,
 				struct usb_host_endpoint *ep, bool reset_ep);
 extern void usb_disable_endpoint(struct usb_device *dev, unsigned int epaddr,
 				bool reset_hardware);
-/*
 extern int usb_hcd_alloc_bandwidth(struct usb_device *udev,
 		struct usb_host_config *new_config,
 		struct usb_host_interface *cur_alt,
