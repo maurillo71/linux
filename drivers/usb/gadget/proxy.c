@@ -697,11 +697,11 @@ module_param(debug, uint, 1);
 MODULE_PARM_DESC(debug, "Debug level, default=0");
 
 /* endpoints enabling/disabling */
-/*
 extern void usb_enable_endpoint(struct usb_device *dev,
 				struct usb_host_endpoint *ep, bool reset_ep);
 extern void usb_disable_endpoint(struct usb_device *dev, unsigned int epaddr,
 				bool reset_hardware);
+/*
 extern int usb_hcd_alloc_bandwidth(struct usb_device *udev,
 		struct usb_host_config *new_config,
 		struct usb_host_interface *cur_alt,

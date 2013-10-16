@@ -88,6 +88,7 @@ static inline int usb_gadget_start(struct usb_gadget *gadget,
 static inline int usb_gadget_udc_start(struct usb_gadget *gadget,
 		struct usb_gadget_driver *driver)
 {
+	printk(KERN_INFO "usb_gadget_udc_start %p %p\n", gadget, driver);
 	return gadget->ops->udc_start(gadget, driver);
 }
 
